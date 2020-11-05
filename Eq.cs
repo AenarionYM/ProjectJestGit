@@ -64,13 +64,15 @@ namespace O.R.K.A._Project_ver._2._0
         {
             Methods.Clear();
             count = 1;
+            
             //Display
             foreach (var item in ItemsDebug)
             {
                 Console.WriteLine($"{count}. {item.name}");
                 count++;
             }
-            Methods.SleepEq();
+            
+            Methods.Sleep(100);
             Console.WriteLine("\n0. Wyjdź\n");
 
             //Choose Item
@@ -82,8 +84,11 @@ namespace O.R.K.A._Project_ver._2._0
             {
                 eqChoiceInt--;
                 count--;
-                
-                if (eqChoiceInt == -1) {ItemsDisplay();}
+
+                if (eqChoiceInt == -1)
+                {
+                    ItemsDisplay();
+                }
                 
                 else if (ItemsDebug.Count > eqChoiceInt && ItemsDebug[eqChoiceInt] != null)
                 {
@@ -109,7 +114,8 @@ namespace O.R.K.A._Project_ver._2._0
                     {
                         Items.Remove(ItemsDebug[eqChoiceInt]);
                         ItemsDebugDispaly();
-                    }                    
+                    }
+                    
                     if (itemChoice == "1" && !Items.Contains(ItemsDebug[eqChoiceInt]))
                     {
                         Items.Add(ItemsDebug[eqChoiceInt]);
@@ -120,12 +126,14 @@ namespace O.R.K.A._Project_ver._2._0
                     {
                         ItemsDebugDispaly();
                     }
+                    
                     else
                     {
                         Methods.Els();
                         ItemsDebugDispaly();
                     }
                 }
+                
                 else
                 {
                     Console.WriteLine("Wprowadź poprawną liczbę");
@@ -133,6 +141,7 @@ namespace O.R.K.A._Project_ver._2._0
                     ItemsDebugDispaly();
                 }
             }
+            
             else if (!isNumber && eqChoice != "")
             {
                 Methods.Clear();
@@ -140,6 +149,7 @@ namespace O.R.K.A._Project_ver._2._0
                 Methods.Ent();
                 ItemsDebugDispaly();
             }
+            
             else
             {
                 ItemsDebugDispaly();
@@ -148,8 +158,6 @@ namespace O.R.K.A._Project_ver._2._0
         
         public void ItemsDisplay()
         {
-            //Może się przydać
-            //Item[] itemsArray = Items.ToArray();
             eqStart:
             Methods.Clear();
             Console.WriteLine("EKWIPUNEK \n");
@@ -162,36 +170,41 @@ namespace O.R.K.A._Project_ver._2._0
                 {
                     Console.WriteLine($"{count}. {item.name}");
                     count++;
-                    Methods.SleepEq();
+                    Methods.Sleep(100);
                 }
+                
                 //Display Weapon
                 if (equippedWeapon != null)
                 {
                     Console.WriteLine($"\n{count}. Używana broń: {equippedWeapon.name}");
-                    Methods.SleepEq();
+                    Methods.Sleep(100);
                     Console.WriteLine($"Obrażenia: {dmgCalculator(equippedWeapon).Min()} - {dmgCalculator(equippedWeapon).Max()}");
                 }
+                
                 else
                 {
                     Console.WriteLine($"\n{count}. Używana broń: Brak");
-                    Methods.SleepEq();
+                    Methods.Sleep(100);
                     Console.WriteLine("Obrażenia: 0 - 0");
                 }
-                Methods.SleepEq();
+                
+                Methods.Sleep(100);
+                
                 //Display Shield
                 if (equippedShield != null)
                 {
                     Console.WriteLine($"\n{count + 1}. Używana tarcza: {equippedShield.name}");
-                    Methods.SleepEq();
+                    Methods.Sleep(100);
                     Console.WriteLine($"Obrona: {equippedShield.parry}");
                 }
+                
                 else
                 {
                     Console.WriteLine($"\n{count + 1}. Używana tarcza: Brak");
-                    Methods.SleepEq();
+                    Methods.Sleep(100);
                     Console.WriteLine("Obrona: 0");
                 }
-                Methods.SleepEq();
+                Methods.Sleep(100);
                 Console.WriteLine("\n0. Wyjdź\n");
             }
             else
@@ -209,8 +222,10 @@ namespace O.R.K.A._Project_ver._2._0
             {
                 eqChoiceInt --;
                 count --;
+                
                 //Exit
                 if (eqChoiceInt == -1) {}
+                
                 //If weapon or shield equipped
                 else if (eqChoiceInt == count && equippedWeapon == null)
                 {
@@ -218,12 +233,14 @@ namespace O.R.K.A._Project_ver._2._0
                     Methods.Ent();
                     goto eqStart;
                 }
+                
                 else if (eqChoiceInt == count + 1 && equippedShield == null)
                 {
                     Console.WriteLine("Nie mam kurwa tarczy!");
                     Methods.Ent();
                     goto eqStart;
                 }
+                
                 else if (eqChoiceInt == count && equippedWeapon != null)
                 {
                     Console.WriteLine(equippedWeapon.name);
@@ -252,6 +269,7 @@ namespace O.R.K.A._Project_ver._2._0
                         goto eqStart;
                     }
                 }
+                
                 else if (eqChoiceInt == count + 1 && equippedShield != null)
                 {
                     Console.WriteLine(equippedShield.name);
@@ -284,13 +302,13 @@ namespace O.R.K.A._Project_ver._2._0
                 else if (Items.Count > eqChoiceInt && Items[eqChoiceInt] != null)
                 {
                     Console.WriteLine(Items[eqChoiceInt].description);
+                    
                     if (Items[eqChoiceInt].usable)
                     {
                         Console.WriteLine("1. Użyj");
                         Console.WriteLine("2. Wróć\n");
                         
                         string itemChoice = Console.ReadLine();
-
                         
                         if (itemChoice == "2")
                         {
@@ -309,6 +327,7 @@ namespace O.R.K.A._Project_ver._2._0
                             Methods.Ent();
                             goto eqStart;
                         }
+                        
                         else if (itemChoice == "1" && Items[eqChoiceInt].isShield)
                         {
                             equippedShield = Items[eqChoiceInt];
@@ -326,6 +345,7 @@ namespace O.R.K.A._Project_ver._2._0
                             Methods.Ent();
                             goto eqStart;
                         }
+                        
                         else if (Items[eqChoiceInt] == Item.DrinkOfYouth)
                         {
                             Console.WriteLine("\n*HUMANITY RESTORED*");
@@ -334,7 +354,8 @@ namespace O.R.K.A._Project_ver._2._0
                             Methods.Ent();
                             goto eqStart;
                         }
-                        //Dorobić ifa na inCombat
+                        
+                        //Dorobić if'a na inCombat
                         else if (Items[eqChoiceInt] == Item.BatonOfPower)
                         {
                             Console.WriteLine("\nSiła zwiększona");
@@ -343,6 +364,7 @@ namespace O.R.K.A._Project_ver._2._0
                             Methods.Ent();
                             goto eqStart;
                         }
+                        
                         else if (Items[eqChoiceInt] == Item.CrispsOfImmortality)
                         {
                             Console.WriteLine("\nObrona zwiększona");
@@ -358,6 +380,7 @@ namespace O.R.K.A._Project_ver._2._0
                             goto eqStart;
                         }
                     }
+                    
                     else
                     {
                         Console.WriteLine("1. Wróć\n");
@@ -365,11 +388,13 @@ namespace O.R.K.A._Project_ver._2._0
                         goto eqStart;
                     }
                 }
+                
                 //Debug
                 else if (eqChoiceInt == 2353)
                 {
                     ItemsDebugDispaly();
                 }
+                
                 else
                 {
                     Console.WriteLine("Wprowadź poprawną liczbę");
@@ -383,17 +408,20 @@ namespace O.R.K.A._Project_ver._2._0
                 Methods.Ent();
                 goto eqStart;
             }
+            
             else
             { 
                 goto eqStart;
             }
         }
     }
+    
     public class Item
     {
         public string name, description;
         public bool usable, isShield, isWeapon;
-        public int parry, 
+        public int 
+            parry, 
             dmgMinHead, 
             dmgMaxHead, 
             dmgMinBody, 
@@ -402,7 +430,8 @@ namespace O.R.K.A._Project_ver._2._0
             dmgMaxLegs;
         
         public Item
-            (string name,
+            (
+            string name,
             string description,
             bool usable = false,
             bool isShield = false,
@@ -413,7 +442,8 @@ namespace O.R.K.A._Project_ver._2._0
             int dmgMaxBody = 0, 
             int dmgMinLegs = 0, 
             int dmgMaxLegs = 0,
-            bool isWeapon = false)
+            bool isWeapon = false
+            )
         {
             this.name = name;
             this.description = description;
@@ -435,48 +465,63 @@ namespace O.R.K.A._Project_ver._2._0
             public static Item Jacket = new Item(
                 "Kurtka", 
                 "Kurtka twojego kolegi");
+            
             public static Item Code = new Item(
                 "Kot", 
                 "Kartka z kodem do drzwi");
+            
             public static Item Milk = new Item(
                 "Mlekooo", 
                 "Karton mleka");
+            
             public static Item Rope = new Item(
                 "Lina", 
                 "Długa lina, na tyle silna żeby cię utrzymać");
+            
             public static Item Dell = new Item(
                 "Dell", 
                 "Niezwykle mijający się ze swoim celem laptop gaming'owy");
+            
             public static Item Hp = new Item(
                 "HP", 
                 "Zwykły hp'ek, naszczęście ma niezmienione hasło do teb-serwis");
+            
             public static Item ThinkPad = new Item(
                 "Thinkpad", 
                 "Każdy go chce, eksperci twierdzą że 'no, jest dobry' oraz 'laptop jak laptop'");
+            
             public static Item WygasPc = new Item(
                 "Laptop Wygasła",
                 "Komputer z najlepszym wygaśaczem ekranu");
+            
             public static Item BrokenMouse = new Item(
                 "Zepsuta myszka",
                 "Mogłaby się przydać do zrobienia kursu sicso, gdyby tylko dało się ją naprawić");
+            
             public static Item C4 = new Item(
                 "C4", 
                 "Pdobno 'Rozpierdoli to pół domu', w zestawie również zdalny detonator");
+            
             public static Item KeyTo17 = new Item(
                 "Klucz do 17", 
                 "Klucz z przyczepionym napisem '17'");
+            
             public static Item RepairKit = new Item(
                 "Kit naprawczy", 
                 "Zestaw naprawczy jednorazowego użytku do myszki z serii 'Pieniądze to nie problem'");
+            
             public static Item Coin = new Item(
                 "Moneta", 
                 "Moneta o nominale ...zł");
+            
             public static Item Jbl = new Item(
                 "Głośnik JBL", 
                 "Świetny do imitacji dźwięków pukania");
+            
             public static Item UsbKiller = new Item(
                 "Usb killer", 
-                "Usb killer, prawdopodobnie należał do Wygasła");        
+                "Usb killer, prawdopodobnie należał do Wygasła");   
+            
             #endregion
 
             #region Usable
@@ -484,18 +529,22 @@ namespace O.R.K.A._Project_ver._2._0
                 "Kawamleko", 
                 "Kawa z mlekiem, powiększa maksymalne zdrowie o 75hp", 
                 true);
+            
             public static Item DrinkOfYouth = new Item(
                 "Napój of Youth", 
                 "Podejrzanie żółty napój, przywraca 60hp",
                 true);
+            
             public static Item BatonOfPower = new Item(
                 "Baton of Power", 
                 "Baton z automatu szkolnego, podnosi obrażenia o 10 do końca walki", 
                 true);
+            
             public static Item CrispsOfImmortality = new Item(
                 "Chipsy of Immortality", 
                 "Paczka powietrza zawierająca 25% chipsów, zwiększa obronę o 10 do końca walki",
                 true);
+            
             #endregion
 
             #region Weapons
@@ -509,6 +558,7 @@ namespace O.R.K.A._Project_ver._2._0
                 7, 16, 
                 6, 13,
                 true);
+            
             public static Item Rabab = new Item(
                 "Rabab", 
                 "Rabab, przekazywany tylko wbrańcom, 24-50",
@@ -519,6 +569,7 @@ namespace O.R.K.A._Project_ver._2._0
                 27, 39,
                 24, 32,
                 true);
+            
             public static Item Thermos = new Item(
                 "Termos", 
                 "Wielka aluminiowa pała do trzymania wody, 2-12 dmg",
@@ -529,6 +580,7 @@ namespace O.R.K.A._Project_ver._2._0
                 5, 8, 
                 2, 4,
                 true);
+            
             public static Item ThermosWater = new Item(
                 "Termoswoda", 
                 "Wielka aluminiowa pała z wodą, 7-21 dmg",
@@ -539,6 +591,7 @@ namespace O.R.K.A._Project_ver._2._0
                 11, 17, 
                 7, 10,
                 true);
+            
             public static Item ThermosTea = new Item(
                 "Termosherbata", 
                 "Wielka aluminiowa pała z herbatką, 6-19 dmg",
@@ -549,6 +602,7 @@ namespace O.R.K.A._Project_ver._2._0
                 9, 16, 
                 6, 8,
                 true);
+            
             public static Item Extingusher = new Item(
                 "Gaśnica", 
                 "Gaśnica 'pożyczona' z korytarza szkolnego, 4-20 dmg",
@@ -559,6 +613,7 @@ namespace O.R.K.A._Project_ver._2._0
                 5, 10, 
                 4, 20,
                 true);
+            
             public static Item Lightsaber = new Item(
                 "Lightsaber", 
                 "May the force be with you",
@@ -569,6 +624,7 @@ namespace O.R.K.A._Project_ver._2._0
                 23, 35, 
                 21, 32,
                 true);
+            
             public static Item StaffOfSosnowiec = new Item(
                 "Staff of Sosnowiec", 
                 "Unikalna ręcznie zrobiona pałka wykonania Sosnowcowego, 21-37",
@@ -579,6 +635,7 @@ namespace O.R.K.A._Project_ver._2._0
                 24, 34, 
                 21, 29,
                 true);
+            
             public static Item Secator = new Item(
                 "Sekator",
                 "Popularne narzędzie fryzjerskie, 1-9 dmg",
@@ -589,6 +646,7 @@ namespace O.R.K.A._Project_ver._2._0
                 3, 6, 
                 2, 4,
                 true);
+            
             public static Item Hand = new Item(
                 "Ręka", 
                 "O Boże!!! To moja ręka! 1-7dmg",
@@ -599,6 +657,7 @@ namespace O.R.K.A._Project_ver._2._0
                 2, 3, 
                 1, 2,
                 true);
+            
             #endregion
 
             #region Shields
@@ -608,32 +667,38 @@ namespace O.R.K.A._Project_ver._2._0
                 true, 
                 true, 
                 6);
+            
             public static Item DeskUpgraded = new Item(
                 "Deska ulepszona", 
                 "Deska ulepszona zdjęciem odByta, +9 obrony",
                 true, 
                 true, 
                 9);
+            
             public static Item ParryHand = new Item(
                 "Ręka", 
                 "O Boże!!! To moja ręka! 1-7dmg",
                 true, 
                 true, 
                 3);
+            
             public static Item Doors = new Item(
                 "Drzwi", 
                 "Drzwi, miejmy nadzieje że są bardziej wytrzymałe niż zawiasy, +12 obrony",
                 true, 
                 true, 
                 12);
+            
             public static Item Fap3000 = new Item(
                 "Fap3000", 
                 "Własnoręcznie stoworzony laptop, świetny do obrony, +15 obrony",
                 true, 
                 true, 
                 15);
+            
             #endregion
         
         #endregion
     }
+    
 }
